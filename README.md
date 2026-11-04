@@ -1,20 +1,27 @@
 # lueurs-audio
 
-Fichier audio : `musique.m4a`
+Fichier audio original `musique.m4a` (durée ~2 min, qualité originale).
 
-Le dépôt a été créé. Le fichier audio (~1,9 Mo) dépasse les limites d'upload de l'interface automatisée, donc ajoutez-le manuellement :
+## Pourquoi en plusieurs parties ?
 
-1. Allez sur https://github.com/spectrus-corp/lueurs-audio
-2. Cliquez sur **Add file** → **Upload files**
-3. Déposez `musique.m4a`
-4. Committez les changements
+Le fichier fait ~1,9 Mo. Les outils automatiques ne peuvent pas uploader de gros binaires d’un coup, donc il a été découpé en base64 (texte) en 33 parties.
 
-Ou en ligne de commande :
+## Comment reconstruire sur mobile / PC
+
+### Sur un ordinateur (le plus simple)
 ```bash
 git clone https://github.com/spectrus-corp/lueurs-audio.git
 cd lueurs-audio
-# copiez musique.m4a ici
-git add musique.m4a
-git commit -m "Add musique.m4a"
-git push
+bash reconstruct.sh
+# → musique.m4a est créé
 ```
+
+### Sur mobile (Termux / a-Shell / etc.)
+1. Télécharge tous les fichiers `part_00` à `part_32`
+2. Dans le terminal :
+```bash
+cat part_* > musique.m4a.b64
+base64 -d musique.m4a.b64 > musique.m4a
+```
+
+Tu auras le fichier audio original intact.
